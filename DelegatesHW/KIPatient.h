@@ -19,7 +19,7 @@ KIPatientArm     = 4
 }KIPatientBodyParts;
 @class KIPatient;
 
-//typedef  void(^KIBlock)(KIPatient* patient,KIPatientBodyParts part);
+typedef  void(^KIBlock)(KIPatient* patient,KIPatientBodyParts part);
 
 @interface KIPatient : NSObject
 

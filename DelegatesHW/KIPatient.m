@@ -12,6 +12,47 @@
 @implementation KIPatient
 
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        
+        NSTimeInterval interval = arc4random_uniform(20);
+        NSLog(@"%.0f",interval);
+        [self performSelector:@selector(patientInitiated) withObject:nil afterDelay:interval];
+    }
+    return self;
+}
+
+KIBlock block = ^(id object,KIPatientBodyParts part){
+    
+    KIPatient* patient = (KIPatient*)object;
+    
+    NSLog(@"Patients  name:%@" ,patient.name);
+    NSLog(@"Patients temp:%.1f",patient.temperature);
+    NSLog(@"Patients pres:%.1f",patient.pressure);
+    NSLog(@"Patients has pain in:%@" ,[patient bodyPartDescription:part]);
+    
+    if (patient.temperature <= 36.6 | patient.temperature < 37 | part == KIPatientHead) {
+        
+        NSLog(@"Patient name:%@ %@",patient.name,[patient gotoSleep]);
+    }
+    else if (patient.temperature >= 37. && patient.temperature < 39. | patient.pressure >= 180. && patient.pressure < 190. | part == KIPatientArm){
+        
+        NSLog(@"Patient name:%@ %@",patient.name,[patient takePill]);
+    }
+    else if (patient.temperature >= 39. | patient.pressure >= 190. | part == KIPatientLeg | part == KIPatientStomach){
+        
+        NSLog(@"Patient name:%@ %@",patient.name,[patient makeShot]);
+    }
+    else NSLog(@"Patient name:%@ feels fine",patient.name);
+    
+    patient.doctorsRate = arc4random()%2;
+    NSLog(@"doctorsRate:%u" ,patient.doctorsRate);
+    
+    
+};
+
 -(NSString*) gotoSleep{
     
     
@@ -48,6 +89,11 @@
     
 }
 
+-(void)patientInitiated{
+    
+    [self patientFeelsBad:self patientBodyPain:arc4random_uniform(3) heelingBlock:block];
+    
+}
 
 -(void)patientFeelsBad:(KIPatient*)patient patientBodyPain:(KIPatientBodyParts) bodyPart heelingBlock:(void(^)(KIPatient*,KIPatientBodyParts)) block{
     

@@ -26,6 +26,39 @@ typedef  void(^KIBlock)(KIPatient* patient,KIPatientBodyParts part);
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+  //Healing Block
+/*
+    KIBlock block = ^(id object,KIPatientBodyParts part){
+        
+        KIPatient* patient = (KIPatient*)object;
+        
+        NSLog(@"Patients  name:%@" ,patient.name);
+        NSLog(@"Patients temp:%.1f",patient.temperature);
+        NSLog(@"Patients pres:%.1f",patient.pressure);
+        NSLog(@"Patients has pain in:%@" ,[patient bodyPartDescription:part]);
+        
+        if (patient.temperature <= 36.6 | patient.temperature < 37 | part == KIPatientHead) {
+            
+            NSLog(@"Patient name:%@ %@",patient.name,[patient gotoSleep]);
+        }
+        else if (patient.temperature >= 37. && patient.temperature < 39. | patient.pressure >= 180. && patient.pressure < 190. | part == KIPatientArm){
+            
+            NSLog(@"Patient name:%@ %@",patient.name,[patient takePill]);
+        }
+        else if (patient.temperature >= 39. | patient.pressure >= 190. | part == KIPatientLeg | part == KIPatientStomach){
+            
+            NSLog(@"Patient name:%@ %@",patient.name,[patient makeShot]);
+        }
+        else NSLog(@"Patient name:%@ feels fine",patient.name);
+        
+        patient.doctorsRate = arc4random()%2;
+        NSLog(@"doctorsRate:%u" ,patient.doctorsRate);
+        
+        
+    };
+    
+    */
+    
     self.patient1 = [[KIPatient alloc]init];
     self.patient1.name = @"patient1";
     self.patient1.temperature = 30.f + (arc4random_uniform(10));
@@ -62,54 +95,27 @@ typedef  void(^KIBlock)(KIPatient* patient,KIPatientBodyParts part);
     self.patient6.pressure = 160.f + (arc4random_uniform(30));
  
     
-    __weak KIPatient* weakPatient1 = self.patient1;
-    __weak KIPatient* weakPatient2 = self.patient2;
-    __weak KIPatient* weakPatient3 = self.patient3;
-    __weak KIPatient* weakPatient4 = self.patient4;
-    __weak KIPatient* weakPatient5 = self.patient5;
-    __weak KIPatient* weakPatient6 = self.patient6;
+//    __weak KIPatient* weakPatient1 = self.patient1;
+ //   __weak KIPatient* weakPatient2 = self.patient2;
+  //  __weak KIPatient* weakPatient3 = self.patient3;
+  //  __weak KIPatient* weakPatient4 = self.patient4;
+ //   __weak KIPatient* weakPatient5 = self.patient5;
+//    __weak KIPatient* weakPatient6 = self.patient6;
 
     
-    NSArray* array = [NSArray arrayWithObjects:weakPatient1,weakPatient2,weakPatient3,weakPatient4,weakPatient5,weakPatient6, nil];
-    
- //Healing Block
-    
-    KIBlock block = ^(id object,KIPatientBodyParts part){
-        
-        KIPatient* patient = (KIPatient*)object;
-        
-        NSLog(@"Patients  name:%@" ,patient.name);
-        NSLog(@"Patients temp:%.1f",patient.temperature);
-        NSLog(@"Patients pres:%.1f",patient.pressure);
-        NSLog(@"Patients has pain in:%@" ,[patient bodyPartDescription:part]);
-        
-        if (patient.temperature <= 36.6 | patient.temperature < 37 | part == KIPatientHead) {
-            
-            NSLog(@"Patient name:%@ %@",patient.name,[patient gotoSleep]);
-        }
-        else if (patient.temperature >= 37. && patient.temperature < 39. | patient.pressure >= 180. && patient.pressure < 190. | part == KIPatientArm){
-            
-            NSLog(@"Patient name:%@ %@",patient.name,[patient takePill]);
-        }
-        else if (patient.temperature >= 39. | patient.pressure >= 190. | part == KIPatientLeg | part == KIPatientStomach){
-            
-            NSLog(@"Patient name:%@ %@",patient.name,[patient makeShot]);
-        }
-        else NSLog(@"Patient name:%@ feels fine",patient.name);
-        
-        patient.doctorsRate = arc4random()%2;
-        NSLog(@"doctorsRate:%u" ,patient.doctorsRate);
-        
-        
-    };
+ //   NSArray* array = [NSArray arrayWithObjects:weakPatient1,weakPatient2,weakPatient3,weakPatient4,weakPatient5,weakPatient6, nil];
     
 
+    
+
+    
+/*
     for (KIPatient* patient in array) {
         
         [patient patientFeelsBad:patient patientBodyPain:1 heelingBlock:block];
         
     }
-
+*/
     
     
     return YES;
